@@ -211,4 +211,23 @@ class TestReadableStringInterpolation extends FunSuite {
 
     assert(str === s"txt1${N}  txt2: line1${N}  line2${N}txt3${N}  txt4${N}    txt5: line1${N}    line2")
   }
+
+  test("22") {
+    val i = "<img />"
+
+    val p = nice"""
+      <p>line1</p>
+      <p>line2</p>
+    """
+
+    val html = nice"""
+      <html>
+        <body>
+          abc $i $p
+        </body>
+      </html>
+    """
+
+    assert(html === s"<html>${N}  <body>${N}    abc <img /> <p>line1</p>${N}    <p>line2</p>${N}  </body>${N}</html>")
+  }
 }

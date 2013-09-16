@@ -27,11 +27,11 @@ object ReadableStringInterpolation {
     val expressionsIterator = args.iterator
 
     val buf = new StringConcatenation
-    var prefix = appendLineGroup(lineGroupsIterator.next, indentationLength, true, buf)
+    var prefix = appendLineGroup(lineGroupsIterator.next, indentationLength, true, buf, "")
 
     while (lineGroupsIterator.hasNext) {
       buf.append(expressionsIterator.next, prefix)
-      prefix = appendLineGroup(lineGroupsIterator.next, indentationLength, false, buf)
+      prefix = appendLineGroup(lineGroupsIterator.next, indentationLength, false, buf, prefix)
     }
 
     buf.toString
@@ -89,7 +89,7 @@ object ReadableStringInterpolation {
     }
   }
 
-  private def appendLineGroup(lines: Seq[String], indentationLength: Int, firstLineGroup: Boolean, buf: StringConcatenation): String = {
+  private def appendLineGroup(lines: Seq[String], indentationLength: Int, firstLineGroup: Boolean, buf: StringConcatenation, previousPrefix: String): String = {
     lines match {
       case Seq() => ""
 
@@ -100,7 +100,7 @@ object ReadableStringInterpolation {
           findWhiteSpacePrefix(lineCut)
         } else {
           buf.append(line)
-          ""
+          previousPrefix
         }
       }
 
@@ -118,11 +118,7 @@ object ReadableStringInterpolation {
           }
         }
 
-        if (tail.last.isEmpty) {
-          ""
-        } else {
-          findWhiteSpacePrefix(tail.last.drop(indentationLength))
-        }
+        findWhiteSpacePrefix(tail.last.drop(indentationLength))
       }
     }
   }
