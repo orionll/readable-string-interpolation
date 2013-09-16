@@ -9,7 +9,7 @@ class TestReadableStringInterpolation extends FunSuite {
   val N = System.getProperty("line.separator")
 
   test("1") {
-    assert(is"""
+    assert(nice"""
     SELECT * FROM TABLE
     WHERE id = ${5} OR id = ${6}
     """ ===
@@ -17,7 +17,7 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("2") {
-    assert(is"""
+    assert(nice"""
     SELECT * FROM TABLE
     WHERE
       id = ${5} OR
@@ -27,7 +27,7 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("3") {
-    assert(is"""  
+    assert(nice"""  
       SELECT * FROM TABLE
 
       WHERE id = ${5} OR id = ${6}
@@ -36,7 +36,7 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("4") {
-    assert(is"""  
+    assert(nice"""  
       SELECT * FROM TABLE
     
       WHERE id = ${5} OR id = ${6}
@@ -46,22 +46,22 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("5") {
-    assert(is"""SELECT * FROM TABLE""" === s"""SELECT * FROM TABLE""")
+    assert(nice"""SELECT * FROM TABLE""" === s"""SELECT * FROM TABLE""")
   }
 
   test("6") {
-    assert(is"""
+    assert(nice"""
       SELECT * FROM TABLE""" === s"""SELECT * FROM TABLE""")
   }
 
   test("7") {
-    assert(is"""
+    assert(nice"""
       SELECT * FROM TABLE
     """ === s"""SELECT * FROM TABLE""")
   }
 
   test("8") {
-    assert(is"""
+    assert(nice"""
 		SELECT * FROM TABLE
 		WHERE id = ${5} OR id = ${6}
     """ ===
@@ -69,7 +69,7 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("9") {
-    assert(is"""
+    assert(nice"""
 		  SELECT * FROM TABLE
 		WHERE id = ${5} OR id = ${6}
     """ ===
@@ -77,7 +77,7 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("10") {
-    assert(is"""
+    assert(nice"""
       <book>
         <title>${"Title"}</title>
         <author>${"Author"}</author>
@@ -87,7 +87,7 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("11") {
-    assert(is"""
+    assert(nice"""
       def removeEndSpaces(lines: Seq[String]): Seq[String] = {
         lines match {
           case Seq() => Seq()
@@ -99,25 +99,25 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("12") {
-    assert(is"""${5}""" === "5")
+    assert(nice"""${5}""" === "5")
   }
 
   test("13") {
-    assert(is"""
+    assert(nice"""
       ${4}
       ${5}
     """ === s"4${N}5")
   }
 
   test("14") {
-    val xml = is"""
+    val xml = nice"""
       <title>${"Title"}</title>
       <author>${"Author"}</author>
     """
 
     assert(xml === s"<title>Title</title>${N}<author>Author</author>")
 
-    assert(is"""
+    assert(nice"""
       <book>
         $xml
       </book>
@@ -126,47 +126,47 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("15") {
-    assert(is" test" === " test")
+    assert(nice" test" === " test")
   }
 
   test("16") {
-    assert(is" ${5}" === " 5")
+    assert(nice" ${5}" === " 5")
   }
 
   test("17") {
-    val xml = is"""
+    val xml = nice"""
       <title>${"Title"}</title>
       <author>${"Author"}</author>
     """
 
     assert(xml === s"<title>Title</title>${N}<author>Author</author>")
 
-    assert(is"""this is $xml""" ===
+    assert(nice"""this is $xml""" ===
       s"this is <title>Title</title>${N}<author>Author</author>")
   }
 
   test("18") {
-    val xml = is"""
+    val xml = nice"""
       <title>${"Title"}</title>
       <author>${"Author"}</author>
     """
 
     assert(xml === s"<title>Title</title>${N}<author>Author</author>")
 
-    assert(is"""
+    assert(nice"""
       this is $xml""" ===
       s"this is <title>Title</title>${N}<author>Author</author>")
   }
 
   test("19") {
-    val xml = is"""
+    val xml = nice"""
       <title>${"Title"}</title>
       <author>${"Author"}</author>
     """
 
     assert(xml === s"<title>Title</title>${N}<author>Author</author>")
 
-    assert(is"""
+    assert(nice"""
       text:
       	xml = $xml
     """ ===
@@ -174,13 +174,13 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("20") {
-    val x = is"""
+    val x = nice"""
       line1
       line2
     """
     assert(x === s"line1${N}line2")
 
-    val str = is"""
+    val str = nice"""
       txt1
         txt2:
           ${x}
@@ -195,13 +195,13 @@ class TestReadableStringInterpolation extends FunSuite {
   }
 
   test("21") {
-    val x = is"""
+    val x = nice"""
       line1
       line2
     """
     assert(x === s"line1${N}line2")
 
-    val str = is"""
+    val str = nice"""
       txt1
         txt2: ${x}
       txt3

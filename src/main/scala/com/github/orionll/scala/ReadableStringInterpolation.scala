@@ -7,7 +7,7 @@ object ReadableStringInterpolation {
 
   implicit class ReadableStringContext(val stringContext: StringContext) extends AnyVal {
 
-    def is(args: Any*): String = {
+    def nice(args: Any*): String = {
       val lineGroups = stringContext.parts.map(_.split("\\r?\\n").toSeq)
 
       if (lineGroups.forall(_.size == 1)) {
