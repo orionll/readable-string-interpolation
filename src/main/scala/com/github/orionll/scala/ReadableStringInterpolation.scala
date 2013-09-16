@@ -31,7 +31,7 @@ object ReadableStringInterpolation {
 
     while (lineGroupsIterator.hasNext) {
       buf.append(expressionsIterator.next, prefix)
-      appendLineGroup(lineGroupsIterator.next, indentationLength, false, buf)
+      prefix = appendLineGroup(lineGroupsIterator.next, indentationLength, false, buf)
     }
 
     buf.toString

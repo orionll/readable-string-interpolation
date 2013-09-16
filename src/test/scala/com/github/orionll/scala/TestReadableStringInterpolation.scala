@@ -172,4 +172,43 @@ class TestReadableStringInterpolation extends FunSuite {
     """ ===
       s"text:${N}\txml = <title>Title</title>${N}\t<author>Author</author>")
   }
+
+  test("20") {
+    val x = is"""
+      line1
+      line2
+    """
+    assert(x === s"line1${N}line2")
+
+    val str = is"""
+      txt1
+        txt2:
+          ${x}
+      txt3
+        txt4
+          txt5:
+            ${x}
+    """
+
+
+    assert(str === s"txt1${N}  txt2:${N}    line1${N}    line2${N}txt3${N}  txt4${N}    txt5:${N}      line1${N}      line2")
+  }
+
+  test("21") {
+    val x = is"""
+      line1
+      line2
+    """
+    assert(x === s"line1${N}line2")
+
+    val str = is"""
+      txt1
+        txt2: ${x}
+      txt3
+        txt4
+          txt5: ${x}
+    """
+
+    assert(str === s"txt1${N}  txt2: line1${N}  line2${N}txt3${N}  txt4${N}    txt5: line1${N}    line2")
+  }
 }
