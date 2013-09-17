@@ -1,6 +1,5 @@
 package com.github.orionll.scala
 
-import org.eclipse.xtend2.lib.StringConcatenation
 import scala.language.postfixOps
 
 object ReadableStringInterpolation {
@@ -8,7 +7,7 @@ object ReadableStringInterpolation {
   implicit class ReadableStringContext(val stringContext: StringContext) extends AnyVal {
 
     def nice(args: Any*): String = {
-      val lineGroups = stringContext.parts.map(_.split("\\r?\\n").toSeq)
+      val lineGroups = stringContext.parts.map(StringConcatenation.split(_).toSeq)
 
       if (lineGroups.forall(_.size == 1)) {
         stringContext.s(args: _*)

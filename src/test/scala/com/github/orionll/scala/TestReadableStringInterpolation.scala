@@ -42,7 +42,7 @@ class TestReadableStringInterpolation extends FunSuite {
       WHERE id = ${5} OR id = ${6}
         
     """ ===
-      s"  SELECT * FROM TABLE${N}${N}  WHERE id = 5 OR id = 6${N}")
+      s"  SELECT * FROM TABLE${N}${N}  WHERE id = 5 OR id = 6${N}    ")
   }
 
   test("5") {
@@ -229,5 +229,25 @@ class TestReadableStringInterpolation extends FunSuite {
     """
 
     assert(html === s"<html>${N}  <body>${N}    abc <img /> <p>line1</p>${N}    <p>line2</p>${N}  </body>${N}</html>")
+  }
+
+  test("23") {
+    val p = nice"""
+    <p>line1</p>
+    <p>line2</p>
+
+"""
+
+    assert(p === s"<p>line1</p>${N}<p>line2</p>${N}")
+
+    val html = nice"""
+      <html>
+        <body>
+          $p
+        </body>
+      </html>
+    """
+
+    assert(html === s"<html>${N}  <body>${N}    <p>line1</p>${N}    <p>line2</p>${N}${N}  </body>${N}</html>")
   }
 }
